@@ -4,8 +4,11 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import styled from "styled-components";
+import Image from "next/image";
 
-// Styling based on the mockup
+import almaLogo from "../public/alma-logo.png";
+import appleSlices from "../public/apple-slices.png";
+
 const Container = styled.div`
   font-family: sans-serif;
   display: flex;
@@ -18,24 +21,31 @@ const Container = styled.div`
 const Header = styled.div`
   background-color: #d9dea5;
   width: 100%;
-  padding: 1rem;
-  text-align: center;
+  padding-left: 0;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  gap: 2rem;
 `;
 
-const Logo = styled.h1`
-  font-size: 2rem;
-  margin-bottom: 10px;
+const Logo = styled.div`
+  margin-bottom: 2.5rem;
+  width: 4.5rem;
+  margin-left: 2px;
+`;
+
+const BackgroundContainer = styled.div`
+`;
+
+const LogoTitleContainer = styled.div`
+  justify-self: center;
 `;
 
 const Title = styled.h2`
-  font-size: 2rem;
+  font-size: 4.5rem;
   margin-bottom: 20px;
   font-weight: 700;
   text-align: left;
-  line-height: 2.25rem;
+  line-height: 4.5rem;
 `;
 
 const FormContainer = styled.div`
@@ -167,12 +177,20 @@ const LeadForm = () => {
   return (
     <Container>
       <Header>
-        <Logo>almā</Logo>
-        <Title>
-          Get An Assessment
-          <br />
-          Of Your Immigration Case
-        </Title>
+        <BackgroundContainer>
+          <Image src={appleSlices} alt="apple slices" width={270} />{" "}
+        </BackgroundContainer>
+        <LogoTitleContainer>
+          <Logo>
+            <Image src={almaLogo} alt="almā Logo" width={100} height={30} />{" "}
+          </Logo>
+
+          <Title>
+            Get An Assessment
+            <br />
+            Of Your Immigration Case
+          </Title>
+        </LogoTitleContainer>
       </Header>
       <FormContainer>
         <SectionTitle>Want to understand your visa options?</SectionTitle>
