@@ -20,12 +20,20 @@ const BackgroundImage = styled.div`
   flex: 0 0 auto;
   margin-right: -2rem;
   transform: translateX(-10%);
+
+  @media (max-width: 1000px) {
+    display: none;
+  }
 `;
 
 const ContentContainer = styled.div`
   flex: 1;
   z-index: 1;
   padding: 0 2rem;
+
+  @media (max-width: 1000px) {
+    padding: 2rem 3rem;
+  }
 `;
 
 const Logo = styled.div`
