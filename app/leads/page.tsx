@@ -130,9 +130,14 @@ const TableCell = styled.td`
   border-bottom: 1px solid #e5e5e5;
   color: #4a4a4a;
   background: white;
+  vertical-align: middle;
+  display: table-cell;
+  height: inherit;
 `;
 
 const StatusBadge = styled.span<{ status: "PENDING" | "REACHED_OUT" }>`
+  display: inline-flex;
+  align-items: center;
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
   font-size: 0.875rem;
@@ -158,6 +163,9 @@ const ActionButton = styled.button`
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     background: #27272a;
