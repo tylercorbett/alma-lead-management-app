@@ -131,6 +131,8 @@ const TextArea = styled(Field)`
 
   &::placeholder {
     color: #9ca3af;
+    font-size: 0.921rem;
+    line-height: 1.1;
   }
 `;
 
