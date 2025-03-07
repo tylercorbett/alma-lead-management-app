@@ -15,7 +15,7 @@ const Sidebar = styled.div`
   width: 240px;
   background: #f7fee7;
   padding: 2rem;
-  border-right: 1px solid #EDEEED;
+  border-right: 1px solid #edeeed;
 `;
 
 const Logo = styled.div`
@@ -178,8 +178,8 @@ const AdminSection = styled.div`
 `;
 
 const AdminCircle = styled.div`
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: #f3f4f6;
   display: flex;
