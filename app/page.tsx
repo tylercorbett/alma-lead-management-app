@@ -1,13 +1,10 @@
 "use client";
 
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import styled from "styled-components";
-import Image from "next/image";
-
-import almaLogo from "../public/alma-logo.png";
-import appleSlices from "../public/apple-slices.png";
+import Header from "./components/Header";
 
 const Container = styled.div`
   font-family: sans-serif;
@@ -16,36 +13,7 @@ const Container = styled.div`
   align-items: center;
   background-color: #f8f8f8;
   color: black;
-`;
-
-const Header = styled.div`
-  background-color: #d9dea5;
-  width: 100%;
-  padding-left: 0;
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-`;
-
-const Logo = styled.div`
-  margin-bottom: 2.5rem;
-  width: 4.5rem;
-  margin-left: 2px;
-`;
-
-const BackgroundContainer = styled.div`
-`;
-
-const LogoTitleContainer = styled.div`
-  justify-self: center;
-`;
-
-const Title = styled.h2`
-  font-size: 4.5rem;
-  margin-bottom: 20px;
-  font-weight: 700;
-  text-align: left;
-  line-height: 4.5rem;
+  min-height: 100vh;
 `;
 
 const FormContainer = styled.div`
@@ -55,6 +23,7 @@ const FormContainer = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 90%;
   max-width: 600px;
+  margin: 2rem auto;
 `;
 
 const SectionTitle = styled.h3`
@@ -127,8 +96,18 @@ const SubmitButton = styled.button`
   font-size: 1em;
 `;
 
+interface FormValues {
+  firstName: string;
+  lastName: string;
+  email: string;
+  country: string;
+  linkedInProfile: string;
+  visaCategory: string;
+  helpMessage: string;
+}
+
 const LeadForm = () => {
-  const initialValues = {
+  const initialValues: FormValues = {
     firstName: "",
     lastName: "",
     email: "",
@@ -150,7 +129,10 @@ const LeadForm = () => {
     helpMessage: Yup.string().required("Please provide a message"),
   });
 
-  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+  const handleSubmit = async (
+    values: FormValues,
+    { setSubmitting, resetForm }: FormikHelpers<FormValues>
+  ) => {
     try {
       const response = await fetch("/api/leads", {
         method: "POST",
@@ -176,22 +158,7 @@ const LeadForm = () => {
 
   return (
     <Container>
-      <Header>
-        <BackgroundContainer>
-          <Image src={appleSlices} alt="apple slices" width={270} />{" "}
-        </BackgroundContainer>
-        <LogoTitleContainer>
-          <Logo>
-            <Image src={almaLogo} alt="almā Logo" width={100} height={30} />{" "}
-          </Logo>
-
-          <Title>
-            Get An Assessment
-            <br />
-            Of Your Immigration Case
-          </Title>
-        </LogoTitleContainer>
-      </Header>
+      <Header />
       <FormContainer>
         <SectionTitle>Want to understand your visa options?</SectionTitle>
         <p>
