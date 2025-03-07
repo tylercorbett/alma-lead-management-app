@@ -97,7 +97,11 @@ const StatusFilter = styled.select`
 
 const Table = styled.table`
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  overflow: hidden;
 `;
 
 const TableHeader = styled.th`
@@ -107,11 +111,16 @@ const TableHeader = styled.th`
   border-bottom: 1px solid #e5e5e5;
   color: #9ca3af;
   cursor: pointer;
+  background: white;
 `;
 
 const TableRow = styled.tr`
   &:hover {
     background: #f9fafb;
+  }
+
+  &:last-child td {
+    border-bottom: none;
   }
 `;
 
@@ -119,6 +128,7 @@ const TableCell = styled.td`
   padding: 1rem;
   border-bottom: 1px solid #e5e5e5;
   color: #4a4a4a;
+  background: white;
 `;
 
 const StatusBadge = styled.span<{ status: "PENDING" | "REACHED_OUT" }>`
@@ -178,8 +188,11 @@ const Pagination = styled.div`
   justify-content: flex-end;
   align-items: center;
   gap: 0.75rem;
-  margin-top: 2rem;
+  padding: 1rem;
+  padding-right: 2rem;
   color: #9ca3af;
+  background: white;
+  border-top: 1px solid #e5e5e5;
 `;
 
 const PageButton = styled.button<{ active?: boolean }>`
@@ -365,14 +378,20 @@ export default function LeadsPage() {
               </TableRow>
             ))}
           </tbody>
+          <tfoot>
+            <tr>
+              <td colSpan={5}>
+                <Pagination>
+                  <PageButton>&lt;</PageButton>
+                  <PageButton active>1</PageButton>
+                  <PageButton>2</PageButton>
+                  <PageButton>3</PageButton>
+                  <PageButton>&gt;</PageButton>
+                </Pagination>
+              </td>
+            </tr>
+          </tfoot>
         </Table>
-        <Pagination>
-          <PageButton>&lt;</PageButton>
-          <PageButton active>1</PageButton>
-          <PageButton>2</PageButton>
-          <PageButton>3</PageButton>
-          <PageButton>&gt;</PageButton>
-        </Pagination>
       </MainContent>
     </Container>
   );
