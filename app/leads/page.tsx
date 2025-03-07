@@ -15,6 +15,7 @@ const Sidebar = styled.div`
   width: 240px;
   background: #f7fee7;
   padding: 2rem;
+  border-right: 1px solid #EDEEED;
 `;
 
 const Logo = styled.div`
