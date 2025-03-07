@@ -193,6 +193,7 @@ const PageButton = styled.button<{ active?: boolean }>`
   border-radius: 2px;
   background: transparent;
   color: ${({ active }) => (active ? "#18181b" : "#9ca3af")};
+  font-weight: ${({ active }) => (active ? "600" : "400")};
   cursor: pointer;
   font-size: 0.875rem;
 
