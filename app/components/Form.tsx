@@ -358,6 +358,9 @@ const LeadForm = () => {
                       I don't know
                     </CheckboxLabel>
                   </CheckboxGroup>
+                  {errors.visaCategory && touched.visaCategory && (
+                    <ErrorMessage>{errors.visaCategory}</ErrorMessage>
+                  )}
                 </FormElementsWrapper>
               </Section>
 
