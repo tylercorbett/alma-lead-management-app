@@ -51,21 +51,48 @@ const SearchBar = styled.div`
   margin-bottom: 2rem;
 `;
 
+const SearchInputWrapper = styled.div`
+  position: relative;
+  width: 300px;
+`;
+
+const SearchIcon = styled.div`
+  position: absolute;
+  left: 12px;
+  top: calc(50% + 2px);
+  transform: translateY(-50%);
+  color: #9ca3af;
+`;
+
 const SearchInput = styled.input`
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem 0.5rem 2.2rem;
   border: 1px solid #e5e5e5;
   border-radius: 4px;
-  width: 300px;
+  width: 100%;
+  color: #9ca3af;
   &::placeholder {
     color: #9ca3af;
   }
 `;
 
 const StatusFilter = styled.select`
-  padding: 0.5rem 1rem;
+  padding: 0 1rem;
+  padding-right: 2rem;
+  padding-left: 0.6rem;
   border: 1px solid #e5e5e5;
   border-radius: 4px;
   background: white;
+  color: #9ca3af;
+  width: 6rem;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 1.2em 1.2em;
+
+  option {
+    color: #9ca3af;
+  }
 `;
 
 const Table = styled.table`
@@ -255,17 +282,35 @@ export default function LeadsPage() {
           <Title>Leads</Title>
         </Header>
         <SearchBar>
-          <SearchInput
-            type="text"
-            placeholder="Search"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+          <SearchInputWrapper>
+            <SearchIcon>
+              <svg
+                width="16"
+                height="16"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </SearchIcon>
+            <SearchInput
+              type="text"
+              placeholder="Search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </SearchInputWrapper>
           <StatusFilter
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
           >
-            <option value="all">All Status</option>
+            <option value="all">Status</option>
             <option value="PENDING">Pending</option>
             <option value="REACHED_OUT">Reached Out</option>
           </StatusFilter>
