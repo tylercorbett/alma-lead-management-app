@@ -70,28 +70,20 @@ const Select = styled(Field)`
   border: 1px solid #e5e5e5;
   border-radius: 4px;
   font-size: 1rem;
-  color: #4a4a4a;
   background: white;
   appearance: none;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: 1em;
+  color: #9ca3af;
 
-  option {
+  &:has(option:checked:not([value=""])) {
     color: #4a4a4a;
   }
 
-  option:first-of-type {
-    color: #9ca3af;
-  }
-
-  &:not(:focus) {
-    color: #9ca3af;
-  }
-
-  &:focus option:first-of-type {
-    display: none;
+  option:not([value=""]) {
+    color: #4a4a4a;
   }
 `;
 
@@ -205,7 +197,9 @@ const LeadForm = () => {
             </InputGroup>
             <InputGroup>
               <Select as="select" name="country">
-                <option value="">Country of Citizenship</option>
+                <option value="" disabled selected>
+                  Country of Citizenship
+                </option>
                 <option value="US">United States</option>
                 <option value="CA">Canada</option>
                 {/* Add more countries */}
