@@ -8,7 +8,7 @@ import Image from "next/image";
 
 const FormContainer = styled.div`
   width: 100%;
-  padding-top: 3rem;
+  padding-top: 2.5rem;
   padding-bottom: 5rem;
 `;
 
