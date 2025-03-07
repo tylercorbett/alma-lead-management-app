@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Formik, Form as FormikForm, Field, FormikProps } from "formik";
 import * as Yup from "yup";
 import Image from "next/image";
-import SuccessMessage from "./SuccessMessage";
+import { useRouter } from "next/navigation";
 
 const FormContainer = styled.div`
   width: 100%;
@@ -191,7 +191,7 @@ interface FormValues {
 }
 
 const LeadForm = () => {
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -216,7 +216,7 @@ const LeadForm = () => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       // Here you would make your actual API call
-      setIsSubmitted(true);
+      router.push("/thankyou");
     } catch (error) {
       console.error("Error submitting form:", error);
       setSubmitError("An error occurred. Please try again.");
@@ -225,10 +225,6 @@ const LeadForm = () => {
       setSubmitting(false);
     }
   };
-
-  if (isSubmitted) {
-    return <SuccessMessage />;
-  }
 
   return (
     <FormContainer>

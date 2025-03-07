@@ -30,7 +30,10 @@ const Message = styled.p`
   font-size: 1rem;
   color: #000;
   margin-bottom: 2rem;
-  line-height: 1.5;
+  line-height: 1.2;
+  font-weight: 600;
+  width: 30rem;
+  text-align: center;
 `;
 
 const Button = styled.a`
@@ -43,13 +46,15 @@ const Button = styled.a`
   font-weight: 600;
   transition: background-color 0.2s;
   cursor: pointer;
+  width: 20rem;
+  text-align: center;
 
   &:hover {
     background: #27272a;
   }
 `;
 
-const SuccessMessage = () => {
+export default function ThankYou() {
   return (
     <Container>
       <Icon>
@@ -70,6 +75,4 @@ const SuccessMessage = () => {
       </Link>
     </Container>
   );
-};
-
-export default SuccessMessage;
+}
