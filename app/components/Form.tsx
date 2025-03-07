@@ -13,7 +13,7 @@ const FormContainer = styled.div`
 `;
 
 const FormElementsWrapper = styled.div`
-  width: 85%;
+  width: 65%;
   margin: 0 auto;
 `;
 
