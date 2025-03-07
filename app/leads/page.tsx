@@ -18,9 +18,11 @@ const Sidebar = styled.div`
 `;
 
 const Logo = styled.div`
+  position: relative;
+  top: -4px;
   margin-bottom: 2rem;
   img {
-    width: 120px;
+    width: 100px;
     height: auto;
   }
 `;
@@ -129,20 +131,18 @@ const ActionButton = styled.button`
 `;
 
 const NavItem = styled.div`
-  padding: 0.75rem 1rem;
-  border-radius: 4px;
+  font-size: 1.1rem;
   color: #18181b;
-  font-weight: 500;
   cursor: pointer;
-  margin-bottom: 0.5rem;
-
-  &:hover {
-    background: #ecfccb;
-  }
+  margin-bottom: 1.8rem;
 
   &.active {
-    background: #84cc16;
-    color: white;
+    font-weight: 600;
+  }
+
+  &:not(.active) {
+    color: #666;
+    font-weight: 400;
   }
 `;
 
@@ -166,6 +166,31 @@ const PageButton = styled.button<{ active?: boolean }>`
   &:hover {
     background: ${({ active }) => (active ? "#27272a" : "#f9fafb")};
   }
+`;
+
+const AdminSection = styled.div`
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
+
+const AdminCircle = styled.div`
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+`;
+
+const AdminLabel = styled.span`
+  font-size: 1rem;
+  color: #18181b;
 `;
 
 export default function LeadsPage() {
@@ -218,6 +243,10 @@ export default function LeadsPage() {
         </Logo>
         <NavItem className="active">Leads</NavItem>
         <NavItem>Settings</NavItem>
+        <AdminSection>
+          <AdminCircle>A</AdminCircle>
+          <AdminLabel>Admin</AdminLabel>
+        </AdminSection>
       </Sidebar>
       <MainContent>
         <Header>
