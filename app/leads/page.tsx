@@ -115,6 +115,7 @@ const TableHeader = styled.th`
 `;
 
 const TableRow = styled.tr`
+  height: 4rem;
   &:hover {
     background: #f9fafb;
   }
@@ -207,11 +208,16 @@ const PageButton = styled.button<{ active?: boolean }>`
   background: transparent;
   color: ${({ active }) => (active ? "#18181b" : "#9ca3af")};
   font-weight: ${({ active }) => (active ? "600" : "400")};
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
   font-size: 0.875rem;
 
-  &:hover {
+  &:hover:not(:disabled) {
     color: #18181b;
+  }
+
+  &:disabled {
+    color: #9ca3af;
+    opacity: 0.5;
   }
 `;
 
@@ -247,12 +253,235 @@ export default function LeadsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 8;
+
+  // Mock data - adding more leads for testing
+  const mockLeads: Lead[] = [
+    {
+      id: "1",
+      firstName: "Jorge",
+      lastName: "Ruiz",
+      status: "PENDING" as const,
+      country: "Mexico",
+      submittedAt: "2024-02-02T14:45:00Z",
+      email: "jorge@example.com",
+      linkedinUrl: "",
+      visaCategory: "",
+      message: "",
+    },
+    {
+      id: "2",
+      firstName: "Bahar",
+      lastName: "Zamir",
+      status: "PENDING" as const,
+      country: "Mexico",
+      submittedAt: "2024-02-02T14:45:00Z",
+      email: "bahar@example.com",
+      linkedinUrl: "",
+      visaCategory: "",
+      message: "",
+    },
+    {
+      id: "3",
+      firstName: "Mary",
+      lastName: "Lopez",
+      status: "PENDING" as const,
+      country: "Brazil",
+      submittedAt: "2024-02-02T14:45:00Z",
+      email: "mary@example.com",
+      linkedinUrl: "",
+      visaCategory: "",
+      message: "",
+    },
+    {
+      id: "4",
+      firstName: "Li",
+      lastName: "Zijin",
+      status: "PENDING" as const,
+      country: "South Korea",
+      submittedAt: "2024-02-02T14:45:00Z",
+      email: "li@example.com",
+      linkedinUrl: "",
+      visaCategory: "",
+      message: "",
+    },
+    {
+      id: "5",
+      firstName: "Mark",
+      lastName: "Antonov",
+      status: "PENDING" as const,
+      country: "Russia",
+      submittedAt: "2024-02-02T14:45:00Z",
+      email: "mark@example.com",
+      linkedinUrl: "",
+      visaCategory: "",
+      message: "",
+    },
+    {
+      id: "6",
+      firstName: "Jane",
+      lastName: "Ma",
+      status: "PENDING" as const,
+      country: "Mexico",
+      submittedAt: "2024-02-02T14:45:00Z",
+      email: "jane@example.com",
+      linkedinUrl: "",
+      visaCategory: "",
+      message: "",
+    },
+    {
+      id: "7",
+      firstName: "Anand",
+      lastName: "Jain",
+      status: "REACHED_OUT" as const,
+      country: "Mexico",
+      submittedAt: "2024-02-02T14:45:00Z",
+      email: "anand@example.com",
+      linkedinUrl: "",
+      visaCategory: "",
+      message: "",
+    },
+    {
+      id: "8",
+      firstName: "Anna",
+      lastName: "Voronova",
+      status: "PENDING" as const,
+      country: "France",
+      submittedAt: "2024-02-02T14:45:00Z",
+      email: "anna@example.com",
+      linkedinUrl: "",
+      visaCategory: "",
+      message: "",
+    },
+    {
+      id: "9",
+      firstName: "David",
+      lastName: "Chen",
+      status: "PENDING" as const,
+      country: "China",
+      submittedAt: "2024-02-02T14:45:00Z",
+      email: "david@example.com",
+      linkedinUrl: "",
+      visaCategory: "",
+      message: "",
+    },
+    {
+      id: "10",
+      firstName: "Sarah",
+      lastName: "Johnson",
+      status: "REACHED_OUT" as const,
+      country: "USA",
+      submittedAt: "2024-02-02T14:45:00Z",
+      email: "sarah@example.com",
+      linkedinUrl: "",
+      visaCategory: "",
+      message: "",
+    },
+    {
+      id: "11",
+      firstName: "Carlos",
+      lastName: "Garcia",
+      status: "PENDING" as const,
+      country: "Spain",
+      submittedAt: "2024-02-02T14:45:00Z",
+      email: "carlos@example.com",
+      linkedinUrl: "",
+      visaCategory: "",
+      message: "",
+    },
+    {
+      id: "12",
+      firstName: "Emma",
+      lastName: "Wilson",
+      status: "PENDING" as const,
+      country: "UK",
+      submittedAt: "2024-02-02T14:45:00Z",
+      email: "emma@example.com",
+      linkedinUrl: "",
+      visaCategory: "",
+      message: "",
+    },
+    {
+      id: "13",
+      firstName: "Yuki",
+      lastName: "Tanaka",
+      status: "REACHED_OUT" as const,
+      country: "Japan",
+      submittedAt: "2024-02-02T14:45:00Z",
+      email: "yuki@example.com",
+      linkedinUrl: "",
+      visaCategory: "",
+      message: "",
+    },
+    {
+      id: "14",
+      firstName: "Alex",
+      lastName: "Kim",
+      status: "PENDING" as const,
+      country: "South Korea",
+      submittedAt: "2024-02-02T14:45:00Z",
+      email: "alex@example.com",
+      linkedinUrl: "",
+      visaCategory: "",
+      message: "",
+    },
+    {
+      id: "15",
+      firstName: "Maria",
+      lastName: "Silva",
+      status: "PENDING" as const,
+      country: "Brazil",
+      submittedAt: "2024-02-02T14:45:00Z",
+      email: "maria@example.com",
+      linkedinUrl: "",
+      visaCategory: "",
+      message: "",
+    },
+    {
+      id: "16",
+      firstName: "Hassan",
+      lastName: "Ahmed",
+      status: "REACHED_OUT" as const,
+      country: "Egypt",
+      submittedAt: "2024-02-02T14:45:00Z",
+      email: "hassan@example.com",
+      linkedinUrl: "",
+      visaCategory: "",
+      message: "",
+    },
+    {
+      id: "17",
+      firstName: "Sophie",
+      lastName: "Martin",
+      status: "PENDING" as const,
+      country: "France",
+      submittedAt: "2024-02-02T14:45:00Z",
+      email: "sophie@example.com",
+      linkedinUrl: "",
+      visaCategory: "",
+      message: "",
+    },
+    {
+      id: "18",
+      firstName: "Luis",
+      lastName: "Rodriguez",
+      status: "PENDING" as const,
+      country: "Argentina",
+      submittedAt: "2024-02-02T14:45:00Z",
+      email: "luis@example.com",
+      linkedinUrl: "",
+      visaCategory: "",
+      message: "",
+    },
+  ];
 
   useEffect(() => {
-    fetchLeads();
-  }, [fetchLeads]);
+    // Using mock data instead of fetchLeads
+    // fetchLeads();
+  }, []);
 
-  const filteredLeads = leads.filter((lead) => {
+  const filteredLeads = mockLeads.filter((lead) => {
     const matchesSearch =
       searchQuery === "" ||
       `${lead.firstName} ${lead.lastName}`
@@ -274,6 +503,18 @@ export default function LeadsPage() {
       ? nameA.localeCompare(nameB)
       : nameB.localeCompare(nameA);
   });
+
+  // Pagination calculations
+  const totalPages = Math.ceil(sortedAndFilteredLeads.length / rowsPerPage);
+  const startIndex = (currentPage - 1) * rowsPerPage;
+  const paginatedLeads = sortedAndFilteredLeads.slice(
+    startIndex,
+    startIndex + rowsPerPage
+  );
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
 
   const toggleSort = () => {
     setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"));
@@ -373,7 +614,7 @@ export default function LeadsPage() {
             </tr>
           </thead>
           <tbody>
-            {sortedAndFilteredLeads.map((lead) => (
+            {paginatedLeads.map((lead) => (
               <TableRow key={lead.id}>
                 <TableCell>
                   {lead.firstName} {lead.lastName}
@@ -401,11 +642,29 @@ export default function LeadsPage() {
             <tr>
               <td colSpan={5}>
                 <Pagination>
-                  <PageButton>&lt;</PageButton>
-                  <PageButton active>1</PageButton>
-                  <PageButton>2</PageButton>
-                  <PageButton>3</PageButton>
-                  <PageButton>&gt;</PageButton>
+                  <PageButton
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                  >
+                    &lt;
+                  </PageButton>
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                    (page) => (
+                      <PageButton
+                        key={page}
+                        active={currentPage === page}
+                        onClick={() => handlePageChange(page)}
+                      >
+                        {page}
+                      </PageButton>
+                    )
+                  )}
+                  <PageButton
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                  >
+                    &gt;
+                  </PageButton>
                 </Pagination>
               </td>
             </tr>
