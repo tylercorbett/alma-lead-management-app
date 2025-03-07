@@ -56,6 +56,10 @@ const Title = styled.div`
   div {
     width: 100%;
   }
+
+  @media (max-width: 520px) {
+    font-size: 3rem;
+  }
 `;
 
 const Header = () => {
