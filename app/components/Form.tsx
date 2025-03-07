@@ -48,7 +48,7 @@ const SectionDescription = styled.p`
   text-align: center;
   font-size: 1.1rem;
   line-height: 1.1;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   margin-left: auto;
   margin-right: auto;
   font-weight: 600;
