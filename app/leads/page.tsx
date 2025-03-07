@@ -324,8 +324,12 @@ export default function LeadsPage() {
               <TableHeader>
                 Submitted <span style={{ color: "#9ca3af" }}>↓</span>
               </TableHeader>
-              <TableHeader>Status</TableHeader>
-              <TableHeader>Country</TableHeader>
+              <TableHeader>
+                Status <span style={{ color: "#9ca3af" }}>↓</span>
+              </TableHeader>
+              <TableHeader>
+                Country <span style={{ color: "#9ca3af" }}>↓</span>
+              </TableHeader>
               <TableHeader>Action</TableHeader>
             </tr>
           </thead>
