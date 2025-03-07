@@ -20,7 +20,7 @@ const Sidebar = styled.div`
 const Logo = styled.div`
   position: relative;
   top: -4px;
-  margin-bottom: 2rem;
+  margin-bottom: 5rem;
   img {
     width: 100px;
     height: auto;
@@ -132,12 +132,11 @@ const ActionButton = styled.button`
 
 const NavItem = styled.div`
   font-size: 1.1rem;
-  color: #18181b;
   cursor: pointer;
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.4rem;
 
   &.active {
-    font-weight: 600;
+    font-weight: 700;
   }
 
   &:not(.active) {
@@ -185,12 +184,14 @@ const AdminCircle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 500;
+  font-weight: 700;
+  font-size: 1.1rem;
 `;
 
 const AdminLabel = styled.span`
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: #18181b;
+  font-weight: 700;
 `;
 
 export default function LeadsPage() {
