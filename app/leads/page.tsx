@@ -177,21 +177,27 @@ const Pagination = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   margin-top: 2rem;
+  color: #9ca3af;
 `;
 
 const PageButton = styled.button<{ active?: boolean }>`
-  padding: 0.5rem;
+  padding: 0.1rem;
   min-width: 2rem;
-  border: 1px solid #e5e5e5;
-  border-radius: 4px;
-  background: ${({ active }) => (active ? "#18181b" : "white")};
-  color: ${({ active }) => (active ? "white" : "#18181b")};
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: ${({ active }) => (active ? "1px solid #18181b" : "none")};
+  border-radius: 2px;
+  background: transparent;
+  color: ${({ active }) => (active ? "#18181b" : "#9ca3af")};
   cursor: pointer;
+  font-size: 0.875rem;
 
   &:hover {
-    background: ${({ active }) => (active ? "#27272a" : "#f9fafb")};
+    color: #18181b;
   }
 `;
 
@@ -360,11 +366,11 @@ export default function LeadsPage() {
           </tbody>
         </Table>
         <Pagination>
-          <PageButton>←</PageButton>
+          <PageButton>&lt;</PageButton>
           <PageButton active>1</PageButton>
           <PageButton>2</PageButton>
           <PageButton>3</PageButton>
-          <PageButton>→</PageButton>
+          <PageButton>&gt;</PageButton>
         </Pagination>
       </MainContent>
     </Container>
