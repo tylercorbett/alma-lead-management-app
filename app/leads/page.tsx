@@ -208,7 +208,13 @@ export default function LeadsPage() {
     <Container>
       <Sidebar>
         <Logo>
-          <Image src="/logo.svg" alt="Alma Logo" width={120} height={40} />
+          <Image
+            src="/alma-logo.png"
+            alt="Alma Logo"
+            width={120}
+            height={40}
+            priority
+          />
         </Logo>
         <NavItem className="active">Leads</NavItem>
         <NavItem>Settings</NavItem>
