@@ -12,8 +12,17 @@ const FormContainer = styled.div`
   padding-bottom: 5rem;
 `;
 
+const FormElementsWrapper = styled.div`
+  width: 85%;
+  margin: 0 auto;
+`;
+
 const Section = styled.div`
   margin-bottom: 2.5rem;
+
+  ${FormElementsWrapper} {
+    margin-top: 2rem;
+  }
 `;
 
 const SectionIcon = styled.div`
@@ -37,8 +46,8 @@ const SectionTitle = styled.h2`
 
 const SectionDescription = styled.p`
   text-align: center;
-  font-size: 1rem;
-  line-height: 1.5;
+  font-size: 1.1rem;
+  line-height: 1.1;
   margin-bottom: 2rem;
   margin-left: auto;
   margin-right: auto;
@@ -117,7 +126,7 @@ const TextArea = styled(Field)`
   border-radius: 4px;
   font-size: 1rem;
   color: #4a4a4a;
-  min-height: 120px;
+  min-height: 150px;
   resize: vertical;
 
   &::placeholder {
@@ -188,34 +197,37 @@ const LeadForm = () => {
             <SectionTitle>Want to understand your visa options?</SectionTitle>
             <SectionDescription>
               Submit the form below and our team of experienced attorneys will
-              review your information and send a preliminary assessment of your
+              review your information and send a preliminary assessment of your{" "}
+              <br />
               case based on your goals.
             </SectionDescription>
-            <InputGroup>
-              <Input name="firstName" placeholder="First Name" />
-            </InputGroup>
-            <InputGroup>
-              <Input name="lastName" placeholder="Last Name" />
-            </InputGroup>
-            <InputGroup>
-              <Input name="email" type="email" placeholder="Email" />
-            </InputGroup>
-            <InputGroup>
-              <Select as="select" name="country">
-                <option value="" disabled selected>
-                  Country of Citizenship
-                </option>
-                <option value="US">United States</option>
-                <option value="CA">Canada</option>
-                {/* Add more countries */}
-              </Select>
-            </InputGroup>
-            <InputGroup>
-              <Input
-                name="linkedinUrl"
-                placeholder="LinkedIn / Personal Website URL"
-              />
-            </InputGroup>
+            <FormElementsWrapper>
+              <InputGroup>
+                <Input name="firstName" placeholder="First Name" />
+              </InputGroup>
+              <InputGroup>
+                <Input name="lastName" placeholder="Last Name" />
+              </InputGroup>
+              <InputGroup>
+                <Input name="email" type="email" placeholder="Email" />
+              </InputGroup>
+              <InputGroup>
+                <Select as="select" name="country">
+                  <option value="" disabled selected>
+                    Country of Citizenship
+                  </option>
+                  <option value="US">United States</option>
+                  <option value="CA">Canada</option>
+                  {/* Add more countries */}
+                </Select>
+              </InputGroup>
+              <InputGroup>
+                <Input
+                  name="linkedinUrl"
+                  placeholder="LinkedIn / Personal Website URL"
+                />
+              </InputGroup>
+            </FormElementsWrapper>
           </Section>
 
           <Section>
@@ -223,28 +235,30 @@ const LeadForm = () => {
               <Image src="/dice.png" alt="Dice icon" width={56} height={56} />
             </SectionIcon>
             <SectionTitle>Visa categories of interest?</SectionTitle>
-            <CheckboxGroup>
-              <CheckboxLabel>
-                <Checkbox type="radio" name="visaCategory" value="O-1" />
-                O-1
-              </CheckboxLabel>
-              <CheckboxLabel>
-                <Checkbox type="radio" name="visaCategory" value="EB-1A" />
-                EB-1A
-              </CheckboxLabel>
-              <CheckboxLabel>
-                <Checkbox type="radio" name="visaCategory" value="EB-2 NIW" />
-                EB-2 NIW
-              </CheckboxLabel>
-              <CheckboxLabel>
-                <Checkbox
-                  type="radio"
-                  name="visaCategory"
-                  value="I don't know"
-                />
-                I don't know
-              </CheckboxLabel>
-            </CheckboxGroup>
+            <FormElementsWrapper>
+              <CheckboxGroup>
+                <CheckboxLabel>
+                  <Checkbox type="radio" name="visaCategory" value="O-1" />
+                  O-1
+                </CheckboxLabel>
+                <CheckboxLabel>
+                  <Checkbox type="radio" name="visaCategory" value="EB-1A" />
+                  EB-1A
+                </CheckboxLabel>
+                <CheckboxLabel>
+                  <Checkbox type="radio" name="visaCategory" value="EB-2 NIW" />
+                  EB-2 NIW
+                </CheckboxLabel>
+                <CheckboxLabel>
+                  <Checkbox
+                    type="radio"
+                    name="visaCategory"
+                    value="I don't know"
+                  />
+                  I don't know
+                </CheckboxLabel>
+              </CheckboxGroup>
+            </FormElementsWrapper>
           </Section>
 
           <Section>
@@ -252,16 +266,20 @@ const LeadForm = () => {
               <Image src="/heart.png" alt="Heart icon" width={56} height={56} />
             </SectionIcon>
             <SectionTitle>How can we help you?</SectionTitle>
-            <InputGroup>
-              <TextArea
-                as="textarea"
-                name="message"
-                placeholder="What is your current status and when does it expire? What is your past immigration history? Are you looking for long-term permanent residency or short-term employment visa or both? Are there any timeline considerations?"
-              />
-            </InputGroup>
+            <FormElementsWrapper>
+              <InputGroup>
+                <TextArea
+                  as="textarea"
+                  name="message"
+                  placeholder="What is your current status and when does it expire? What is your past immigration history? Are you looking for long-term permanent residency or short-term employment visa or both? Are there any timeline considerations?"
+                />
+              </InputGroup>
+            </FormElementsWrapper>
           </Section>
 
-          <SubmitButton type="submit">Submit</SubmitButton>
+          <FormElementsWrapper>
+            <SubmitButton type="submit">Submit</SubmitButton>
+          </FormElementsWrapper>
         </FormikForm>
       </Formik>
     </FormContainer>
