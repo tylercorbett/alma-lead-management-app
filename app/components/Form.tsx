@@ -22,8 +22,8 @@ const SectionIcon = styled.div`
   margin-bottom: 1rem;
 
   img {
-    width: 48px;
-    height: 48px;
+    width: 56px;
+    height: 56px;
   }
 `;
 
@@ -178,7 +178,12 @@ const LeadForm = () => {
         <FormikForm>
           <Section>
             <SectionIcon>
-              <Image src="/file.svg" alt="File icon" width={48} height={48} />
+              <Image
+                src="/information-paper.png"
+                alt="Information paper icon"
+                width={56}
+                height={56}
+              />
             </SectionIcon>
             <SectionTitle>Want to understand your visa options?</SectionTitle>
             <SectionDescription>
@@ -215,7 +220,7 @@ const LeadForm = () => {
 
           <Section>
             <SectionIcon>
-              <Image src="/globe.svg" alt="Globe icon" width={48} height={48} />
+              <Image src="/dice.png" alt="Dice icon" width={56} height={56} />
             </SectionIcon>
             <SectionTitle>Visa categories of interest?</SectionTitle>
             <CheckboxGroup>
@@ -244,12 +249,7 @@ const LeadForm = () => {
 
           <Section>
             <SectionIcon>
-              <Image
-                src="/window.svg"
-                alt="Window icon"
-                width={48}
-                height={48}
-              />
+              <Image src="/heart.png" alt="Heart icon" width={56} height={56} />
             </SectionIcon>
             <SectionTitle>How can we help you?</SectionTitle>
             <InputGroup>
