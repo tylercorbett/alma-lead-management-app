@@ -103,9 +103,9 @@ const Table = styled.table`
 const TableHeader = styled.th`
   text-align: left;
   padding: 1rem;
-  font-weight: 600;
+  font-weight: 400;
   border-bottom: 1px solid #e5e5e5;
-  color: #4a4a4a;
+  color: #9ca3af;
   cursor: pointer;
 `;
 
@@ -318,8 +318,12 @@ export default function LeadsPage() {
         <Table>
           <thead>
             <tr>
-              <TableHeader>Name ↓</TableHeader>
-              <TableHeader>Submitted ↓</TableHeader>
+              <TableHeader>
+                Name <span style={{ color: "#9ca3af" }}>↓</span>
+              </TableHeader>
+              <TableHeader>
+                Submitted <span style={{ color: "#9ca3af" }}>↓</span>
+              </TableHeader>
               <TableHeader>Status</TableHeader>
               <TableHeader>Country</TableHeader>
               <TableHeader>Action</TableHeader>
