@@ -246,6 +246,7 @@ export default function LeadsPage() {
   const { leads, loading, error, fetchLeads, updateLeadStatus } = useLeads();
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
   useEffect(() => {
     fetchLeads();
@@ -265,6 +266,18 @@ export default function LeadsPage() {
 
     return matchesSearch && matchesStatus;
   });
+
+  const sortedAndFilteredLeads = [...filteredLeads].sort((a, b) => {
+    const nameA = `${a.firstName} ${a.lastName}`.toLowerCase();
+    const nameB = `${b.firstName} ${b.lastName}`.toLowerCase();
+    return sortDirection === "asc"
+      ? nameA.localeCompare(nameB)
+      : nameB.localeCompare(nameA);
+  });
+
+  const toggleSort = () => {
+    setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"));
+  };
 
   const handleUpdateStatus = async (leadId: string) => {
     await updateLeadStatus(leadId, "REACHED_OUT");
@@ -339,7 +352,13 @@ export default function LeadsPage() {
           <thead>
             <tr>
               <TableHeader>
-                Name <span style={{ color: "#9ca3af" }}>↓</span>
+                Name{" "}
+                <span
+                  onClick={toggleSort}
+                  style={{ color: "#9ca3af", cursor: "pointer" }}
+                >
+                  {sortDirection === "asc" ? "↓" : "↑"}
+                </span>
               </TableHeader>
               <TableHeader>
                 Submitted <span style={{ color: "#9ca3af" }}>↓</span>
@@ -354,7 +373,7 @@ export default function LeadsPage() {
             </tr>
           </thead>
           <tbody>
-            {filteredLeads.map((lead) => (
+            {sortedAndFilteredLeads.map((lead) => (
               <TableRow key={lead.id}>
                 <TableCell>
                   {lead.firstName} {lead.lastName}
