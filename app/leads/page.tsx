@@ -256,6 +256,14 @@ const AdminLabel = styled.span`
   font-weight: 700;
 `;
 
+const EmptyStateMessage = styled.td`
+  text-align: center;
+  padding: 2rem;
+  color: #9ca3af;
+  font-size: 0.975rem;
+  background: white;
+`;
+
 export default function LeadsPage() {
   const { leads, loading, error, fetchLeads, updateLeadStatus } = useLeads();
   const [searchQuery, setSearchQuery] = useState("");
@@ -692,29 +700,37 @@ export default function LeadsPage() {
             </tr>
           </thead>
           <tbody>
-            {displayedLeads.map((lead) => (
-              <TableRow key={lead.id}>
-                <TableCell>
-                  {lead.firstName} {lead.lastName}
-                </TableCell>
-                <TableCell>
-                  {new Date(lead.submittedAt).toLocaleString()}
-                </TableCell>
-                <TableCell>
-                  <StatusBadge status={lead.status}>
-                    {lead.status === "PENDING" ? "Pending" : "Reached Out"}
-                  </StatusBadge>
-                </TableCell>
-                <TableCell>{lead.country}</TableCell>
-                <TableCell>
-                  {lead.status === "PENDING" && (
-                    <ActionButton onClick={() => handleUpdateStatus(lead.id)}>
-                      Mark as Reached Out
-                    </ActionButton>
-                  )}
-                </TableCell>
-              </TableRow>
-            ))}
+            {displayedLeads.length > 0 ? (
+              displayedLeads.map((lead) => (
+                <TableRow key={lead.id}>
+                  <TableCell>
+                    {lead.firstName} {lead.lastName}
+                  </TableCell>
+                  <TableCell>
+                    {new Date(lead.submittedAt).toLocaleString()}
+                  </TableCell>
+                  <TableCell>
+                    <StatusBadge status={lead.status}>
+                      {lead.status === "PENDING" ? "Pending" : "Reached Out"}
+                    </StatusBadge>
+                  </TableCell>
+                  <TableCell>{lead.country}</TableCell>
+                  <TableCell>
+                    {lead.status === "PENDING" && (
+                      <ActionButton onClick={() => handleUpdateStatus(lead.id)}>
+                        Mark as Reached Out
+                      </ActionButton>
+                    )}
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <tr>
+                <EmptyStateMessage colSpan={5}>
+                  No results found
+                </EmptyStateMessage>
+              </tr>
+            )}
           </tbody>
           <tfoot>
             <tr>
