@@ -257,10 +257,21 @@ const LeadForm = () => {
     try {
       setIsSubmitting(true);
       setSubmitError(null);
-      // Simulate API call with a delay
+
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // Here you would make your actual API call
+      const response = await fetch("/api/leads", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit form");
+      }
+
       router.push("/thankyou");
     } catch (error) {
       console.error("Error submitting form:", error);
