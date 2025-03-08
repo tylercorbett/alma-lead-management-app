@@ -260,9 +260,13 @@ export default function LeadsPage() {
   const { leads, loading, error, fetchLeads, updateLeadStatus } = useLeads();
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-  const [sortDirection, setSortDirection] = useState<"asc" | "desc" | null>(
-    null
-  );
+  const [sortConfig, setSortConfig] = useState<{
+    column: "name" | "submitted" | "status" | "country" | null;
+    direction: "asc" | "desc" | null;
+  }>({
+    column: null,
+    direction: null,
+  });
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 8;
 
@@ -516,26 +520,48 @@ export default function LeadsPage() {
 
   // Sort only the current page
   const displayedLeads = [...paginatedLeads].sort((a, b) => {
-    if (sortDirection === null) return 0; // Keep original order
+    if (!sortConfig.column || !sortConfig.direction) return 0;
 
-    const nameA = `${a.firstName} ${a.lastName}`.toLowerCase();
-    const nameB = `${b.firstName} ${b.lastName}`.toLowerCase();
-    return sortDirection === "asc"
-      ? nameA.localeCompare(nameB)
-      : nameB.localeCompare(nameA);
+    const direction = sortConfig.direction === "asc" ? 1 : -1;
+
+    switch (sortConfig.column) {
+      case "name":
+        const nameA = `${a.firstName} ${a.lastName}`.toLowerCase();
+        const nameB = `${b.firstName} ${b.lastName}`.toLowerCase();
+        return direction * nameA.localeCompare(nameB);
+      case "submitted":
+        return (
+          direction *
+          (new Date(a.submittedAt).getTime() -
+            new Date(b.submittedAt).getTime())
+        );
+      case "status":
+        return direction * a.status.localeCompare(b.status);
+      case "country":
+        return direction * a.country.localeCompare(b.country);
+      default:
+        return 0;
+    }
   });
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
     // Reset sorting when changing pages
-    setSortDirection(null);
+    setSortConfig({ column: null, direction: null });
   };
 
-  const toggleSort = () => {
-    setSortDirection((prev) => {
-      if (prev === null) return "asc";
-      return prev === "asc" ? "desc" : null;
-    });
+  const toggleSort = (column: "name" | "submitted" | "status" | "country") => {
+    setSortConfig((prev) => ({
+      column,
+      direction:
+        prev.column !== column
+          ? "asc"
+          : prev.direction === null
+          ? "asc"
+          : prev.direction === "asc"
+          ? "desc"
+          : null,
+    }));
   };
 
   const handleUpdateStatus = async (leadId: string) => {
@@ -613,24 +639,54 @@ export default function LeadsPage() {
               <TableHeader>
                 Name{" "}
                 <span
-                  onClick={toggleSort}
+                  onClick={() => toggleSort("name")}
                   style={{ color: "#9ca3af", cursor: "pointer" }}
                 >
-                  {sortDirection === null
+                  {sortConfig.column !== "name"
                     ? "↓"
-                    : sortDirection === "asc"
+                    : sortConfig.direction === "asc"
                     ? "↓"
                     : "↑"}
                 </span>
               </TableHeader>
               <TableHeader>
-                Submitted <span style={{ color: "#9ca3af" }}>↓</span>
+                Submitted{" "}
+                <span
+                  onClick={() => toggleSort("submitted")}
+                  style={{ color: "#9ca3af", cursor: "pointer" }}
+                >
+                  {sortConfig.column !== "submitted"
+                    ? "↓"
+                    : sortConfig.direction === "asc"
+                    ? "↓"
+                    : "↑"}
+                </span>
               </TableHeader>
               <TableHeader>
-                Status <span style={{ color: "#9ca3af" }}>↓</span>
+                Status{" "}
+                <span
+                  onClick={() => toggleSort("status")}
+                  style={{ color: "#9ca3af", cursor: "pointer" }}
+                >
+                  {sortConfig.column !== "status"
+                    ? "↓"
+                    : sortConfig.direction === "asc"
+                    ? "↓"
+                    : "↑"}
+                </span>
               </TableHeader>
               <TableHeader>
-                Country <span style={{ color: "#9ca3af" }}>↓</span>
+                Country{" "}
+                <span
+                  onClick={() => toggleSort("country")}
+                  style={{ color: "#9ca3af", cursor: "pointer" }}
+                >
+                  {sortConfig.column !== "country"
+                    ? "↓"
+                    : sortConfig.direction === "asc"
+                    ? "↓"
+                    : "↑"}
+                </span>
               </TableHeader>
               <TableHeader>Action</TableHeader>
             </tr>
