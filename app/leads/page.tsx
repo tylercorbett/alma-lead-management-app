@@ -17,7 +17,16 @@ const Container = styled.div`
 
 const Sidebar = styled.div`
   width: 240px;
-  background: #f7fee7;
+  background: linear-gradient(
+    135deg,
+    #ecfccb 0%,
+    #f7fee7 15%,
+    #f9fef0 30%,
+    #fbfef5 40%,
+    #fcfef8 45%,
+    white 50%,
+    white 100%
+  );
   padding: 2rem;
   border-right: 1px solid #edeeed;
   height: 100vh;
