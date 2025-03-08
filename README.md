@@ -42,20 +42,7 @@ To access the leads dashboard, use these credentials:
 - **Email**: `test@test.com`
 - **Password**: `tylerstest`
 
-## Project Structure
 
-```
-alma-lead-management-app/
-├── app/
-│   ├── api/               # API routes
-│   ├── components/        # React components
-│   ├── context/          # React context providers
-│   ├── leads/            # Leads dashboard page
-│   ├── login/            # Login page
-│   └── page.tsx          # Homepage with lead form
-├── public/               # Static assets
-└── types/               # TypeScript type definitions
-```
 
 ## Available Scripts
 
@@ -78,21 +65,4 @@ The application uses Next.js 14 and requires:
 - File uploads in the form are UI-only and not processed
 - Authentication is mock-based for demonstration purposes
 
-## Browser Support
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details
