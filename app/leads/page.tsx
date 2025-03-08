@@ -260,7 +260,9 @@ export default function LeadsPage() {
   const { leads, loading, error, fetchLeads, updateLeadStatus } = useLeads();
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc" | null>(
+    null
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 8;
 
@@ -504,7 +506,18 @@ export default function LeadsPage() {
     return matchesSearch && matchesStatus;
   });
 
-  const sortedAndFilteredLeads = [...filteredLeads].sort((a, b) => {
+  // Pagination calculations
+  const totalPages = Math.ceil(filteredLeads.length / rowsPerPage);
+  const startIndex = (currentPage - 1) * rowsPerPage;
+  const paginatedLeads = filteredLeads.slice(
+    startIndex,
+    startIndex + rowsPerPage
+  );
+
+  // Sort only the current page
+  const displayedLeads = [...paginatedLeads].sort((a, b) => {
+    if (!sortDirection) return 0;
+
     const nameA = `${a.firstName} ${a.lastName}`.toLowerCase();
     const nameB = `${b.firstName} ${b.lastName}`.toLowerCase();
     return sortDirection === "asc"
@@ -512,20 +525,18 @@ export default function LeadsPage() {
       : nameB.localeCompare(nameA);
   });
 
-  // Pagination calculations
-  const totalPages = Math.ceil(sortedAndFilteredLeads.length / rowsPerPage);
-  const startIndex = (currentPage - 1) * rowsPerPage;
-  const paginatedLeads = sortedAndFilteredLeads.slice(
-    startIndex,
-    startIndex + rowsPerPage
-  );
-
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
+    // Reset sorting when changing pages
+    setSortDirection(null);
   };
 
   const toggleSort = () => {
-    setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"));
+    setSortDirection((prev) => {
+      if (prev === null) return "asc";
+      if (prev === "asc") return "desc";
+      return null;
+    });
   };
 
   const handleUpdateStatus = async (leadId: string) => {
@@ -606,7 +617,11 @@ export default function LeadsPage() {
                   onClick={toggleSort}
                   style={{ color: "#9ca3af", cursor: "pointer" }}
                 >
-                  {sortDirection === "asc" ? "↓" : "↑"}
+                  {sortDirection === null
+                    ? "↓"
+                    : sortDirection === "asc"
+                    ? "↓"
+                    : "↑"}
                 </span>
               </TableHeader>
               <TableHeader>
@@ -622,7 +637,7 @@ export default function LeadsPage() {
             </tr>
           </thead>
           <tbody>
-            {paginatedLeads.map((lead) => (
+            {displayedLeads.map((lead) => (
               <TableRow key={lead.id}>
                 <TableCell>
                   {lead.firstName} {lead.lastName}
