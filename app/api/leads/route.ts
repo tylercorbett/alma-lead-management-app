@@ -1,5 +1,6 @@
-import { NextResponse } from 'next/server';
-import { mockLeads } from '@/app/data/mockLeads';
+import { NextResponse } from "next/server";
+import { mockLeads } from "@/app/data/mockLeads";
+import { Lead, LeadStatus } from "@/app/types/lead";
 
 // In-memory storage for leads (this will reset when server restarts)
 let leads = [...mockLeads];
@@ -11,8 +12,8 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    
-    const newLead = {
+
+    const newLead: Lead = {
       id: `lead_${Date.now()}`,
       firstName: body.firstName,
       lastName: body.lastName,
@@ -21,7 +22,7 @@ export async function POST(request: Request) {
       linkedinUrl: body.linkedinUrl,
       visaCategory: body.visaCategory,
       message: body.message,
-      status: "PENDING",
+      status: "PENDING" as LeadStatus,
       submittedAt: new Date().toISOString(),
     };
 
@@ -34,4 +35,4 @@ export async function POST(request: Request) {
       { status: 400 }
     );
   }
-} 
+}
