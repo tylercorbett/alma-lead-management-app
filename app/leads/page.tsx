@@ -516,7 +516,7 @@ export default function LeadsPage() {
 
   // Sort only the current page
   const displayedLeads = [...paginatedLeads].sort((a, b) => {
-    if (!sortDirection) return 0;
+    if (sortDirection === null) return 0; // Keep original order
 
     const nameA = `${a.firstName} ${a.lastName}`.toLowerCase();
     const nameB = `${b.firstName} ${b.lastName}`.toLowerCase();
@@ -534,8 +534,7 @@ export default function LeadsPage() {
   const toggleSort = () => {
     setSortDirection((prev) => {
       if (prev === null) return "asc";
-      if (prev === "asc") return "desc";
-      return null;
+      return prev === "asc" ? "desc" : null;
     });
   };
 
