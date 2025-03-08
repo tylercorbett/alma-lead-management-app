@@ -164,23 +164,9 @@ const TableCell = styled.td`
   height: inherit;
 `;
 
-const StatusBadge = styled.span<{ status: "PENDING" | "REACHED_OUT" }>`
-  display: inline-flex;
-  align-items: center;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
+const StatusBadge = styled.span`
+  color: #4a4a4a;
   font-size: 0.875rem;
-  font-weight: 500;
-  ${({ status }) =>
-    status === "PENDING"
-      ? `
-    background: #FEF3C7;
-    color: #92400E;
-  `
-      : `
-    background: #DCFCE7;
-    color: #166534;
-  `}
 `;
 
 const ActionButton = styled.button`
@@ -315,7 +301,7 @@ export default function LeadsPage() {
     }
   }, [isAuthenticated, router]);
 
-  const filteredLeads = mockLeads.filter((lead) => {
+  const filteredLeads = leads.filter((lead) => {
     const matchesSearch =
       searchQuery === "" ||
       `${lead.firstName} ${lead.lastName}`
@@ -526,7 +512,7 @@ export default function LeadsPage() {
                     {new Date(lead.submittedAt).toLocaleString()}
                   </TableCell>
                   <TableCell>
-                    <StatusBadge status={lead.status}>
+                    <StatusBadge>
                       {lead.status === "PENDING" ? "Pending" : "Reached Out"}
                     </StatusBadge>
                   </TableCell>
