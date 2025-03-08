@@ -48,7 +48,7 @@ const Title = styled.h1`
 const SearchBar = styled.div`
   display: flex;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 `;
 
 const SearchInputWrapper = styled.div`
@@ -100,7 +100,7 @@ const Table = styled.table`
   border-collapse: separate;
   border-spacing: 0;
   border: 1px solid #e5e5e5;
-  border-radius: 8px;
+  border-radius: 1.4rem;
   overflow: hidden;
 `;
 
