@@ -125,6 +125,7 @@ const StatusFilter = styled.select`
 
 const Table = styled.table`
   width: 100%;
+  min-width: 820px;
   border-collapse: separate;
   border-spacing: 0;
   border: 1px solid #e5e5e5;
