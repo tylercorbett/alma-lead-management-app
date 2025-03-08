@@ -6,6 +6,8 @@ import Image from "next/image";
 import { useLeads } from "../context/LeadsContext";
 import { Lead } from "../types/lead";
 import { mockLeads } from "../data/mockLeads";
+import { useRouter } from "next/navigation";
+import { useAuth } from "../context/AuthContext";
 
 const Container = styled.div`
   display: flex;
@@ -303,11 +305,14 @@ export default function LeadsPage() {
   });
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 8;
+  const router = useRouter();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
-    // Using mock data instead of fetchLeads
-    // fetchLeads();
-  }, []);
+    if (!isAuthenticated) {
+      router.push("/login");
+    }
+  }, [isAuthenticated, router]);
 
   const filteredLeads = mockLeads.filter((lead) => {
     const matchesSearch =
@@ -381,6 +386,10 @@ export default function LeadsPage() {
   const handleUpdateStatus = async (leadId: string) => {
     await updateLeadStatus(leadId, "REACHED_OUT");
   };
+
+  if (!isAuthenticated) {
+    return null;
+  }
 
   if (loading) {
     return <div>Loading...</div>;

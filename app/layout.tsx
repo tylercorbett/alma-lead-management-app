@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./styles/globals.css";
 import { LeadsProvider } from "./context/LeadsContext";
+import { AuthProvider } from "./context/AuthContext";
+import StyledComponentsRegistry from "./lib/registry";
+import "./lib/disableDevTools";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,7 +29,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <LeadsProvider>{children}</LeadsProvider>
+        <StyledComponentsRegistry>
+          <AuthProvider>
+            <LeadsProvider>{children}</LeadsProvider>
+          </AuthProvider>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );
