@@ -6,6 +6,7 @@ import { Formik, Form as FormikForm, Field, FormikProps } from "formik";
 import * as Yup from "yup";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useLeads } from "../context/LeadsContext";
 
 const FormContainer = styled.div`
   width: 100%;
@@ -237,6 +238,7 @@ interface FormValues {
 
 const LeadForm = () => {
   const router = useRouter();
+  const { addLead } = useLeads();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -260,18 +262,7 @@ const LeadForm = () => {
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      const response = await fetch("/api/leads", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to submit form");
-      }
-
+      addLead(values);
       router.push("/thankyou");
     } catch (error) {
       console.error("Error submitting form:", error);
