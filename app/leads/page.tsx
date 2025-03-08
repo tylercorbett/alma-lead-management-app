@@ -289,7 +289,7 @@ const EmptyStateMessage = styled.td`
 `;
 
 export default function LeadsPage() {
-  const { leads, loading, error, fetchLeads, updateLeadStatus } = useLeads();
+  const { leads, loading, error, updateLeadStatus } = useLeads();
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [sortConfig, setSortConfig] = useState<{
