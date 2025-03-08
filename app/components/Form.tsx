@@ -137,6 +137,43 @@ const StyledTextArea = styled.textarea`
   }
 `;
 
+const FileUploadWrapper = styled.div`
+  margin-bottom: 1rem;
+`;
+
+const FileUploadLabel = styled.label`
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #9ca3af;
+  font-size: 0.875rem;
+`;
+
+const FileUploadInput = styled.input`
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #4a4a4a;
+  background: white;
+
+  &::file-selector-button {
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
+    border: none;
+    border-radius: 4px;
+    background: #18181b;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background: #27272a;
+    }
+  }
+`;
+
 const ErrorMessage = styled.div`
   color: #ef4444;
   font-size: 0.875rem;
@@ -303,13 +340,29 @@ const LeadForm = () => {
                   </InputGroup>
                   <InputGroup>
                     <Input
+                      type="text"
                       name="linkedinUrl"
-                      placeholder="LinkedIn / Personal Website URL"
+                      placeholder="LinkedIn URL"
                     />
                     {errors.linkedinUrl && touched.linkedinUrl && (
                       <ErrorMessage>{errors.linkedinUrl}</ErrorMessage>
                     )}
                   </InputGroup>
+
+                  <FileUploadWrapper>
+                    <FileUploadLabel>Resume</FileUploadLabel>
+                    <FileUploadInput
+                      type="file"
+                      accept=".pdf,.doc,.docx"
+                      onChange={(e) => {
+                        // File upload is just for UI, not actually used in form submission
+                        console.log(
+                          "File selected:",
+                          e.target.files?.[0]?.name
+                        );
+                      }}
+                    />
+                  </FileUploadWrapper>
                 </FormElementsWrapper>
               </Section>
 
