@@ -1,19 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./styles/globals.css";
 import { LeadsProvider } from "./context/LeadsContext";
 import { AuthProvider } from "./context/AuthContext";
 import StyledComponentsRegistry from "./lib/registry";
 import "./lib/disableDevTools";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -28,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={inter.variable}>
         <StyledComponentsRegistry>
           <AuthProvider>
             <LeadsProvider>{children}</LeadsProvider>
