@@ -176,7 +176,7 @@ const validationSchema = Yup.object().shape({
   country: Yup.string().required("Required"),
   linkedinUrl: Yup.string().url("Invalid URL").required("Required"),
   visaCategory: Yup.string().required("Required"),
-  message: Yup.string().required("Required"),
+  message: Yup.string(),
   submit: Yup.string(),
 });
 
