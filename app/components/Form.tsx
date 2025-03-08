@@ -154,23 +154,31 @@ const FileUploadInput = styled.input`
   border: 1px solid #e5e5e5;
   border-radius: 4px;
   font-size: 1rem;
-  color: #4a4a4a;
+  color: #9ca3af;
   background: white;
 
-  &::file-selector-button {
-    padding: 0.5rem 1rem;
-    margin-right: 1rem;
-    border: none;
-    border-radius: 4px;
-    background: #18181b;
-    color: white;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s;
+  &[type="file"] {
+    color-scheme: normal;
 
-    &:hover {
-      background: #27272a;
+    &::file-selector-button {
+      padding: 0.5rem 1rem;
+      margin-right: 1rem;
+      border: none;
+      border-radius: 4px;
+      background: #18181b;
+      color: white;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background: #27272a;
+      }
     }
+  }
+
+  &:has(:not(:placeholder-shown)) {
+    color: #4a4a4a;
   }
 `;
 
