@@ -9,7 +9,8 @@ import { mockLeads } from "../data/mockLeads";
 
 const Container = styled.div`
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 `;
 
 const Sidebar = styled.div`
@@ -17,6 +18,10 @@ const Sidebar = styled.div`
   background: #f7fee7;
   padding: 2rem;
   border-right: 1px solid #edeeed;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
 `;
 
 const Logo = styled.div`
@@ -32,6 +37,26 @@ const Logo = styled.div`
 const MainContent = styled.div`
   flex: 1;
   padding: 2rem;
+  margin-left: 240px;
+  height: 100vh;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #ddd;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #ccc;
+  }
 `;
 
 const Header = styled.div`
